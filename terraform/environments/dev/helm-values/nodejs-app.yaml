@@ -1,0 +1,35 @@
+
+ingress:
+  enabled: true
+  className: "ingress"
+  hosts:
+    - host: dev-nodejs-app.app.io
+      paths:
+        - path: /helloWorld
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+configMap:
+  data:
+    config.json: |
+      {
+        "id": 12345,
+        "name": "Dev User",
+        "email": "dev@app.io",
+        "isActive": true,
+        "roles": ["developer", "tester"],
+        "environment": "development",
+        "debug": true,
+        "logLevel": "debug"
+      }
+
+podDisruptionBudget:
+  minAvailable: 1

@@ -1,0 +1,59 @@
+replicaCount: 3
+
+image:
+  repository: pvermeyden/nodejs-hello-world
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: "ingress"
+  hosts: []
+  tls: []
+
+resources:
+  limits:
+    cpu: 50m
+    memory: 100Mi
+  requests:
+    cpu: 25m
+    memory: 100Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  nodeAffinity:
+    remobo
+
+configMap:
+  data:
+    config.json: |
+      {}
+
+podDisruptionBudget:
+  minAvailable: 2
